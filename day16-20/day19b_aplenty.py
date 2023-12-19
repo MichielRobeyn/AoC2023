@@ -10,12 +10,12 @@ def get_next(dict_ranges, rules):
         if base[1] == '<':
             dict_temp = deepcopy(leftover_dict)
             dict_temp[base[0]] = (dict_temp[base[0]][0], max(int(base[2:]) - 1, dict_temp[base[0]][0]))
-            leftover_dict[base[0]] = (min(dict_ranges[base[0]][1], int(base[2:]) - 1), dict_ranges[base[0]][1])
+            leftover_dict[base[0]] = (min(leftover_dict[base[0]][1], int(base[2:]) - 1), leftover_dict[base[0]][1])
             lst.append((dict_temp, end))
         elif rule[1] == '>':
             dict_temp = deepcopy(leftover_dict)
             dict_temp[base[0]] = (min(dict_temp[base[0]][1], int(base[2:])), dict_temp[base[0]][1])
-            leftover_dict[base[0]] = (dict_ranges[base[0]][0], max(int(base[2:]), dict_ranges[base[0]][0]))
+            leftover_dict[base[0]] = (leftover_dict[base[0]][0], max(int(base[2:]), leftover_dict[base[0]][0]))
             lst.append((dict_temp, end))
 
     lst.append((leftover_dict, rules[-1]))
@@ -38,7 +38,7 @@ def get_accepted(workflow, flow='in', dict_ranges=None):
 
 
 def main():
-    with open('input.txt') as file:
+    with open('day19_input.txt') as file:
         data = file.read()
 
     rules, parts = data.strip().split('\n\n')
